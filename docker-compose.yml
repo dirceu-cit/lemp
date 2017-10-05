@@ -1,19 +1,6 @@
 # Reference from: http://geekyplatypus.com/dockerise-your-php-application-with-nginx-and-php7-fpm/
 version: '2.1'
 services: 
-    nginx:
-        image: 'nginx:latest'
-        ports:
-            - '80:80'
-        volumes:
-            - ./code:/code
-            - ./site.conf:/etc/nginx/conf.d/default.conf
-    php:
-        image: 'dirceu/php'
-        build:
-            context: ./php
-        volumes:
-            - ./code:/code
     mysql:
         image: 'mysql:5.7'
         ports:
@@ -22,5 +9,38 @@ services:
             - mysqldb_data:/var/lib/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=SuperSecret
+            - MYSQL_DATABASE=magento
+            - MYSQL_USER=magento
+            - MYSQL_PASSWORD=magento
+    php:
+        image: 'dirceu/php'
+        build:
+            context: ./php
+        environment:
+            - M2SETUP_DB_HOST=mysql
+            - M2SETUP_DB_NAME=magento
+            - M2SETUP_DB_USER=magento
+            - M2SETUP_DB_PASSWORD=magento
+            - M2SETUP_BASE_URL=http://mymagento.dev/
+            - M2SETUP_ADMIN_FIRSTNAME=Admin
+            - M2SETUP_ADMIN_LASTNAME=User
+            - M2SETUP_ADMIN_EMAIL=admin@user.com
+            - M2SETUP_ADMIN_USER=magento2
+            - M2SETUP_ADMIN_PASSWORD=magento2
+            - M2SETUP_USE_SAMPLE_DATA=false
+        depends_on:
+            - "mysql"
+    nginx:
+        image: 'dirceu/nginx'
+        build:
+            context: ./nginx
+        ports:
+            - '80:80'
+        environment:
+            - NGINX_SERVER_NAME=mymagento.dev
+        volumes_from:
+            - php:ro
+        depends_on:
+            - "php"
 volumes:
   mysqldb_data:
