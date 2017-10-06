@@ -17,7 +17,7 @@ else
   M2SETUP_USE_SAMPLE_DATA_STRING=""
 fi
 
-if [ -f /src/app/etc/config.php ] || [ -f /src/app/etc/env.php ]; then
+if [ "$M2SETUP_FORCE_EXECUTION" eq "false" ] && ([ -f /src/app/etc/config.php ] || [ -f /src/app/etc/env.php ]); then
   echo "Already installed? Either app/etc/config.php or app/etc/env.php exist, please remove both files to continue setup."
   /usr/local/sbin/php-fpm
 fi
@@ -36,10 +36,9 @@ echo "Running Magento 2 setup script..."
   --admin-password=$M2SETUP_ADMIN_PASSWORD \
   $M2SETUP_USE_SAMPLE_DATA_STRING
 
-echo "Reindexing all indexes..."
-/src/bin/magento indexer:reindex
-
 /src/bin/magento setup:static-content:deploy
+/src/bin/magento indexer:reindex
+/src/bin/magento deploy:mode:set $M2MODE
 
 echo "Applying ownership & proper permissions..."
 sed -i 's/0770/0775/g' /src/vendor/magento/framework/Filesystem/DriverInterface.php

@@ -10,7 +10,7 @@ Here is what I want to do: http://devdocs.magento.com/guides/v2.0/install-gde/in
 - [x] Do the docker-container working with Magento-2 CE
 - [ ] Change Comunity Edition by Enterprise Edition 
 - [x] Externalize the Magento credentials as a docker build args picked from host environment-variable
-- [ ] Fix the 404 error for the magento's static files (css, js)
+- [x] Fix the 404 error for the magento's static files (css, js)
 - [ ] Create the proper Package Manager to provide the php modules (better if could be the Nexus)
 - [ ] Pull and deploy the customized code
 - [ ] Create the jenkins and the deployment process

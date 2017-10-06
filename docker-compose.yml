@@ -30,6 +30,8 @@ services:
             - M2SETUP_ADMIN_USER=magento2
             - M2SETUP_ADMIN_PASSWORD=magento2
             - M2SETUP_USE_SAMPLE_DATA=false
+            - M2SETUP_FORCE_EXECUTION=false
+            - M2MODE=developer
         depends_on:
             - "mysql"
     nginx:
