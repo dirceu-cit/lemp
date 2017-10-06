@@ -57,6 +57,7 @@ WORKDIR /src
 
 VOLUME /src
 
+COPY php.ini /usr/local/etc/php/php.ini
 COPY ./m2setup.sh /usr/local/bin/
 
 CMD ["/usr/local/bin/m2setup.sh"]
