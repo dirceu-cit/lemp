@@ -4,6 +4,19 @@ Linux Nginx MySql and PHP. This is a docker composition which will support our M
 
 Here we have three linked containers, which are running nginx, php-fpm-7 and MySql:latest. Running `docker-compose up` you are going to have an webserver listening on 80 port of docker host machine (usually localhost). You can test it accessing http://localhost/index.html
 
-Still missing the Magento 2.1 installation, which is the next step before start to work on the deployment scripts. 
-
 Here is what I want to do: http://devdocs.magento.com/guides/v2.0/install-gde/install-flow-diagram.html
+
+### TODOs:
+- [x] Do the docker-container working with Magento-2 CE
+- [ ] Change Comunity Edition by Enterprise Edition 
+- [ ] Externalize the Magento credentials as a docker build args picked from host environment-variable
+- [ ] Fix the 404 error for the magento's static files (css, js)
+- [ ] Create the proper Package Manager to provide the php modules (better if could be the Nexus)
+- [ ] Pull and deploy the customized code
+- [ ] Create the jenkins and the deployment process
+- [ ] Make the same deployment process working for Azure VMs
+- [ ] Restrict the access for VMs
+- [ ] Build the SCM process based on Pull Request First
+
+
+
