@@ -47,8 +47,9 @@ RUN curl -sS https://getcomposer.org/installer | \
       --version=1.1.2
 
 # # Install Magento project
+ARG magento_repo_credential
 RUN composer create-project \
-  --repository-url=https://$AUTH@repo.magento.com/ \
+  --repository-url=https://$magento_repo_credential@repo.magento.com/ \
   magento/project-community-edition=2.1.9 \
   /src
 

@@ -16,12 +16,14 @@ services:
         image: 'dirceu/php'
         build:
             context: ./php
+            args:
+                magento_repo_credential: ${MAGENTO_REPO_CREDENTIAL}
         environment:
             - M2SETUP_DB_HOST=mysql
             - M2SETUP_DB_NAME=magento
             - M2SETUP_DB_USER=magento
             - M2SETUP_DB_PASSWORD=magento
-            - M2SETUP_BASE_URL=http://mymagento.dev/
+            - M2SETUP_BASE_URL=http://localhost/
             - M2SETUP_ADMIN_FIRSTNAME=Admin
             - M2SETUP_ADMIN_LASTNAME=User
             - M2SETUP_ADMIN_EMAIL=admin@user.com
@@ -37,7 +39,7 @@ services:
         ports:
             - '80:80'
         environment:
-            - NGINX_SERVER_NAME=mymagento.dev
+            - NGINX_SERVER_NAME=localhost
         volumes_from:
             - php:ro
         depends_on:
