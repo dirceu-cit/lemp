@@ -51,7 +51,7 @@ COPY auth.json /root/.composer/auth.json
 # # Install Magento project
 RUN composer create-project \
   --repository-url=https://repo.magento.com/ \
-  magento/project-community-edition=2.1.9 \
+  magento/project-enterprise-edition=2.1.7 \
   /src
 
 WORKDIR /src
