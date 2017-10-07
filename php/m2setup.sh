@@ -43,11 +43,10 @@ echo "Running Magento 2 setup script..."
 echo "Applying ownership & proper permissions..."
 sed -i 's/0770/0775/g' /src/vendor/magento/framework/Filesystem/DriverInterface.php
 sed -i 's/0660/0664/g' /src/vendor/magento/framework/Filesystem/DriverInterface.php
-find pub -type f -exec chmod 664 {} \;
-find pub -type d -exec chmod 775 {} \;
-find /src/var/generation -type d -exec chmod g+s {} \;
+find pub -type f -exec chmod 664 {} 
+find pub -type d -exec chmod 775 {} 
+find /src/var/generation -type d -exec chmod g+s {} 
 chown -R www-data:www-data /src
-
 echo "The setup script has completed execution."
 
 /usr/local/sbin/php-fpm

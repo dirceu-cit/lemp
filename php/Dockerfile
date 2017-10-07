@@ -44,12 +44,13 @@ RUN curl -sS https://getcomposer.org/installer | \
     php -- \
       --install-dir=/usr/local/bin \
       --filename=composer \
-      --version=1.1.2
+      --version=1.3.0
+
+COPY auth.json /root/.composer/auth.json
 
 # # Install Magento project
-ARG magento_repo_credential
 RUN composer create-project \
-  --repository-url=https://$magento_repo_credential@repo.magento.com/ \
+  --repository-url=https://repo.magento.com/ \
   magento/project-community-edition=2.1.9 \
   /src
 
