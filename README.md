@@ -4,6 +4,16 @@ Linux Nginx MySql and PHP. This is a docker composition which will support our M
 
 To run it, you must get an `auth.json` file containing the access keys for download Magento from its official site. Ask for your tech leader about how to get it. After that, put this file into the `php` folder and run the command `docker-compose up`. It takes a while at the first time to create the image with magento included, but in the end you will have a webserver listening on 80 port of docker host machine (usually localhost). You can test the frontend access accessing http://localhost
 
+## Commands
+### Get Admin URI
+```
+docker-compose exec php /src/bin/magento info:adminuri
+```
+### Change Magento mode
+```
+docker-compose exec php /src/bin/magento deploy:mode:set {default|developer|production}
+```
+
 ### TODOs:
 - [x] Do the docker-container working with Magento-2 CE
 - [x] Change Comunity Edition by Enterprise Edition 
