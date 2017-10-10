@@ -12,6 +12,10 @@ services:
             - MYSQL_DATABASE=magento
             - MYSQL_USER=magento
             - MYSQL_PASSWORD=magento
+        healthcheck:
+            test: mysql --user=root --password=SuperSecret -e 'SELECT * FROM INFORMATION_SCHEMA.TABLES;'
+            timeout: 20s
+            retries: 10
     php:
         image: 'b2b_magento2/php'
         build:
@@ -32,7 +36,8 @@ services:
             - M2SETUP_FORCE_EXECUTION=true
             - M2MODE=developer
         depends_on:
-            - "mysql"
+            "mysql":
+                condition: service_healthy
     nginx:
         image: 'b2b_magento2/nginx'
         build:
@@ -44,6 +49,7 @@ services:
         volumes_from:
             - php:ro
         depends_on:
-            - "php"
+            "php":
+                 condition: service_started
 volumes:
   mysqldb_data:
