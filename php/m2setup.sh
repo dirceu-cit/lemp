@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Initializing setup..."
+echo "Initializing Magento2 setup..."
 
 chmod +x /src/bin/magento
 
@@ -46,5 +46,3 @@ if [ "$M2SETUP_FORCE_EXECUTION" == "true" ] || [ ! -f /src/app/etc/config.php ] 
   chown -R www-data:www-data /src
   echo "The setup script has completed execution."
 fi
-
-/usr/local/sbin/php-fpm
