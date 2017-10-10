@@ -30,6 +30,7 @@ if [ "$M2SETUP_FORCE_EXECUTION" == "true" ] || [ ! -f /src/app/etc/config.php ] 
     --admin-email=$M2SETUP_ADMIN_EMAIL \
     --admin-user=$M2SETUP_ADMIN_USER \
     --admin-password=$M2SETUP_ADMIN_PASSWORD \
+    --backend-frontname=$M2SETUP_ADMIN_URI \
     $M2SETUP_USE_SAMPLE_DATA_STRING
 
   /src/bin/magento setup:static-content:deploy
