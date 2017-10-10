@@ -13,7 +13,7 @@ services:
             - MYSQL_USER=magento
             - MYSQL_PASSWORD=magento
     php:
-        image: 'dirceu/php'
+        image: 'b2b_magento2/php'
         build:
             context: ./php
         environment:
@@ -34,7 +34,7 @@ services:
         depends_on:
             - "mysql"
     nginx:
-        image: 'dirceu/nginx'
+        image: 'b2b_magento2/nginx'
         build:
             context: ./nginx
         ports:
