@@ -27,6 +27,7 @@ services:
             - M2SETUP_ADMIN_EMAIL=admin@user.com
             - M2SETUP_ADMIN_USER=magento2
             - M2SETUP_ADMIN_PASSWORD=magento2
+            - M2SETUP_ADMIN_URI=admin
             - M2SETUP_USE_SAMPLE_DATA=false
             - M2SETUP_FORCE_EXECUTION=true
             - M2MODE=developer
