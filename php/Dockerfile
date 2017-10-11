@@ -46,10 +46,7 @@ RUN echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012
     echo "xdebug.profiler_output_dir=\"/tmp\"" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 COPY ./php.ini /usr/local/etc/php/php.ini
-COPY ./run.sh /usr/local/bin/
-COPY ./m2setup.sh /usr/local/bin/
-COPY ./magento-create-project.sh /usr/local/bin/
-COPY ./magento-set-permissions.sh /usr/local/bin/
+COPY ./*.sh /usr/local/bin/
 
 WORKDIR /src
 
