@@ -35,6 +35,8 @@ services:
             - M2SETUP_USE_SAMPLE_DATA=false
             - M2SETUP_FORCE_EXECUTION=true
             - M2MODE=developer
+        volumes:
+            - ~/.composer/auth.json:/root/.composer/auth.json
         depends_on:
             "mysql":
                 condition: service_healthy
