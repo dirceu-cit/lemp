@@ -1,9 +1,6 @@
 FROM php:7.0-fpm
 
-ADD log.conf /usr/local/etc/php-fpm.d/zz-log.conf
-
-RUN apt-get update \
-  && apt-get install -y \
+RUN apt-get update  && apt-get install -y \
     cron \
     libfreetype6-dev \
     libicu-dev \
@@ -12,8 +9,7 @@ RUN apt-get update \
     libpng12-dev \
     libxslt1-dev
 
-RUN docker-php-ext-configure \
-  gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 
 RUN docker-php-ext-install \
   gd \
@@ -28,6 +24,15 @@ RUN docker-php-ext-install \
 
 RUN pecl install xdebug-stable
 
+RUN curl -sS https://getcomposer.org/installer | \
+    php -- \
+      --install-dir=/usr/local/bin \
+      --filename=composer \
+      --version=1.3.0
+
+RUN echo "php_admin_flag[log_errors] = on" > /usr/local/etc/php-fpm.d/zz-log.conf && \
+    echo "php_flag[display_errors] = off" >> /usr/local/etc/php-fpm.d/zz-log.conf
+
 RUN echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini && \
     echo "xdebug.default_enable = 1" >> /usr/local/etc/php/conf.d/xdebug.ini && \
     echo "xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/xdebug.ini && \
@@ -40,26 +45,15 @@ RUN echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012
     echo "xdebug.profiler_enable_trigger=1" >> /usr/local/etc/php/conf.d/xdebug.ini && \
     echo "xdebug.profiler_output_dir=\"/tmp\"" >> /usr/local/etc/php/conf.d/xdebug.ini
 
-RUN curl -sS https://getcomposer.org/installer | \
-    php -- \
-      --install-dir=/usr/local/bin \
-      --filename=composer \
-      --version=1.3.0
-
-COPY auth.json /root/.composer/auth.json
-
-# # Install Magento project
-RUN composer create-project \
-  --repository-url=https://repo.magento.com/ \
-  magento/project-enterprise-edition=2.1.7 \
-  /src
+COPY ./php.ini /usr/local/etc/php/php.ini
+COPY ./run.sh /usr/local/bin/
+COPY ./m2setup.sh /usr/local/bin/
+COPY ./magento-create-project.sh /usr/local/bin/
+COPY ./magento-set-permissions.sh /usr/local/bin/
 
 WORKDIR /src
 
 VOLUME /src
-
-COPY php.ini /usr/local/etc/php/php.ini
-COPY ./run.sh /usr/local/bin/
-COPY ./m2setup.sh /usr/local/bin/
+VOLUME /root/.composer
 
 CMD ["/usr/local/bin/run.sh"]
