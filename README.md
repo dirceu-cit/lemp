@@ -1,4 +1,4 @@
-# LEMP
+# LEMP (Deprecated. Just used for read-only)
 
 Linux Nginx MySql and PHP. This is a docker composition which will support our Magento DEV Environment. I created it in order to have somewhere to test the deployment scripts that will be executed in the Azure's Magento VMs. Bringing it to docker, we can run an infra-structure easily in our local environment and then focus in the other important things, which is the automatic deployment that should run on a Jenkins App. Here we have three linked containers: mysql:latest, nginx:latest and php-fpm:7.0. The last one contains the Magento 2.1.9 installed. 
 
@@ -19,10 +19,3 @@ docker-compose exec php /src/bin/magento deploy:mode:set {default|developer|prod
 - [x] Change Comunity Edition by Enterprise Edition 
 - [x] Externalize the Magento credentials as a docker build args picked from host environment-variable
 - [x] Fix the 404 error for the magento's static files (css, js)
-- [ ] Create the proper Package Manager to provide the php modules (better if could be the Nexus)
-- [ ] Pull and deploy the customized code
-- [ ] Create the jenkins and the deployment process
-- [ ] Make the same deployment process working for Azure VMs
-- [ ] Restrict the access for VMs
-- [ ] Build the SCM process based on Pull Request First
-- [ ] Create a health-check for each container, specially the php one.
