@@ -1,4 +1,4 @@
-# LEMP (Deprecated. Just used for read-only)
+# LEMP (Deprecated. Preserved for read-only access)
 
 Linux Nginx MySql and PHP. This is a docker composition which will support our Magento DEV Environment. I created it in order to have somewhere to test the deployment scripts that will be executed in the Azure's Magento VMs. Bringing it to docker, we can run an infra-structure easily in our local environment and then focus in the other important things, which is the automatic deployment that should run on a Jenkins App. Here we have three linked containers: mysql:latest, nginx:latest and php-fpm:7.0. The last one contains the Magento 2.1.9 installed. 
 
